@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisanat Marocain — Accueil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terracotta: #9B4020;
+            --terracotta-light: #C0603A;
+            --sand: #F2E8D9;
+            --sand-dark: #E8D5BB;
+            --ink: #1A1208;
+            --warm-gray: #8A7B6F;
+            --gold: #C4973D;
+            --gold-light: #E8C06A;
+            --cream: #FDFAF5;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background-color: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            height: 15%;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 60px;
+            background: rgba(253, 250, 245, 0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(155, 64, 32, 0.12);
+            transition: all 0.3s;
+        }
+        .nav-logo img {
+            width: 120px;
+            height: auto;
+        }
+        .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* ── HERO ── */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 25% 60%, rgba(155,64,32,0.5) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 20%, rgba(196,151,61,0.25) 0%, transparent 50%),
+                linear-gradient(160deg, #1A1208 0%, #2E1A08 50%, #3D2008 100%);
+        }
+        .hero-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.04;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-rule='evenodd'%3E%3Cpath d='M40 0L80 40L40 80L0 40z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-img-overlay {
+            position: absolute;
+            right: 0; top: 0;
+            
+            height: 100%;
+            object-fit: cover;
+            opacity: 1;
+            mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 0%, transparent 80%);
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 0%, transparent 80%);
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 80px 20px;
+            max-width: 720px;
+        }
+        .hero-eyebrow {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 6.5vw, 90px);
+            line-height: 1.03;
+            color: var(--white);
+            margin-bottom: 28px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--gold-light);
+        }
+        .hero-desc {
+            font-size: 17px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.6);
+            max-width: 500px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.8s forwards;
+        }
+        .btn-primary {
+            background: var(--terracotta);
+            color: white;
+            padding: 14px 36px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+        .btn-outline {
+            color: rgba(255,255,255,0.7);
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 2px;
+            transition: color 0.3s, border-color 0.3s;
+        }
+        .btn-outline:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+        /* ── TICKER ── */
+        .ticker {
+            background: var(--terracotta);
+            color: white;
+            padding: 12px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .ticker-inner {
+            display: inline-flex;
+            gap: 60px;
+            animation: ticker 25s linear infinite;
+        }
+        .ticker-item {
+            font-size: 12px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+        .ticker-sep { color: var(--gold-light); }
+        @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* ── ABOUT STRIP ── */
+        .about-strip {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 70vh;
+        }
+        .about-img {
+            position: relative;
+            overflow: hidden;
+        }
+        .about-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        .about-img:hover img { transform: scale(1.04); }
+        .about-text {
+            background: var(--sand);
+            padding: 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .section-eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 20px;
+        }
+        .about-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(34px, 3.5vw, 52px);
+            line-height: 1.15;
+            color: var(--ink);
+            margin-bottom: 28px;
+        }
+        .about-text h2 em { font-style: italic; color: var(--terracotta); }
+        .about-text p {
+            font-size: 16px;
+            line-height: 1.85;
+            color: var(--warm-gray);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        /* ── STATS ── */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--ink);
+            padding: 60px;
+            gap: 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 52px;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.45);
+        }
+
+        /* ── COLLECTIONS GRID ── */
+        .collections-section {
+            padding: 120px 60px;
+            background: var(--cream);
+        }
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 60px;
+        }
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 58px);
+            line-height: 1.1;
+            color: var(--ink);
+        }
+        .section-header h2 em { font-style: italic; color: var(--terracotta); }
+        .section-header a {
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            text-decoration: none;
+            border-bottom: 1px solid var(--terracotta);
+            padding-bottom: 2px;
+            white-space: nowrap;
+            margin-left: 40px;
+            transition: opacity 0.3s;
+        }
+        .section-header a:hover { opacity: 0.7; }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .col-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            cursor: pointer;
+        }
+        .col-card-bg {
+            position: absolute;
+            inset: 0;
+            transition: transform 0.7s ease;
+        }
+        .col-card:hover .col-card-bg { transform: scale(1.07); }
+        .col-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,18,8,0.85) 0%, transparent 60%);
+        }
+        .col-card-content {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            padding: 32px;
+            transform: translateY(10px);
+            transition: transform 0.4s ease;
+        }
+        .col-card:hover .col-card-content { transform: translateY(0); }
+        .col-card-num {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+        .col-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .col-card-desc {
+            font-size: 13px;
+            color: rgba(255,255,255,0.6);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.4s;
+            opacity: 0;
+        }
+        .col-card:hover .col-card-desc { max-height: 80px; opacity: 1; }
+        .col-card-badge {
+            position: absolute;
+            top: 20px; right: 20px;
+            background: rgba(155,64,32,0.92);
+            color: white;
+            font-size: 10px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 1px;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Placeholder colors for missing images */
+        .bg-tapisBeniOuarain    { background: linear-gradient(135deg, #5C3317 0%, #9B6040 100%); }
+        .bg-tapisBoucherouite  { background: linear-gradient(135deg, #2B4A5A 0%, #4E8098 100%); }
+        .bg-tapisMrirt   { background: linear-gradient(135deg, #1A1208 0%, #4A3420 100%); }
+        .bg-tapisBoujaad     { background: linear-gradient(135deg, #4A2010 0%, #8B5030 100%); }
+        .bg-tapisKilim { background: linear-gradient(135deg, #2A1F00 0%, #7A5A00 100%); }
+        .bg-TapisTaznakht  { background: linear-gradient(135deg, #2A0A20 0%, #6A3050 100%); }
+
+        /* ── ARTISANS TEASER ── */
+        .artisans-section {
+            background: var(--sand);
+            padding: 120px 60px;
+        }
+        .artisans-section .section-header { margin-bottom: 60px; }
+        .artisans-section .section-header h2 { color: var(--ink); }
+
+        .artisans-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .artisan-teaser {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            background: white;
+            padding: 30px;
+            border-radius: 2px;
+            box-shadow: 0 2px 20px rgba(26,18,8,0.06);
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+        .artisan-teaser:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(155,64,32,0.15);
+        }
+        .artisan-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+            border: 3px solid var(--sand-dark);
+        }
+        .artisan-avatar-placeholder {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta) 0%, var(--terracotta-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+        .artisan-info { flex: 1; }
+        .artisan-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+        .artisan-role {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 10px;
+        }
+        .artisan-bio {
+            font-size: 13px;
+            color: var(--warm-gray);
+            line-height: 1.65;
+        }
+
+        /* ── NEWSLETTER ── */
+        .newsletter {
+            background: var(--ink);
+            padding: 100px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+        .newsletter-text { max-width: 500px; }
+        .newsletter-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .newsletter-text h2 em { font-style: italic; color: var(--gold-light); }
+        .newsletter-text p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.7;
+        }
+        .newsletter-form {
+            display: flex;
+            gap: 0;
+            flex: 1;
+            max-width: 440px;
+        }
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 24px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-right: none;
+            color: white;
+            font-family: 'Jost', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .newsletter-form input::placeholder { color: rgba(255,255,255,0.3); }
+        .newsletter-form input:focus { border-color: var(--terracotta); }
+        .newsletter-form button {
+            background: var(--terracotta);
+            color: white;
+            border: none;
+            padding: 16px 28px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            transition: background 0.3s;
+        }
+        .newsletter-form button:hover { background: var(--terracotta-light); }
+        .nl-success {
+            display: none;
+            color: var(--gold-light);
+            font-size: 14px;
+            margin-top: 12px;
+        }
+
+        /* ── CONTACT TEASER ── */
+        .contact-strip {
+            background: var(--terracotta);
+            padding: 80px 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .contact-strip h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            color: white;
+        }
+        .contact-strip p { font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 8px; }
+        .contact-strip a {
+            background: white;
+            color: var(--terracotta);
+            padding: 14px 36px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            white-space: nowrap;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .contact-strip a:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #110D06;
+            padding: 60px;
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 30px;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--terracotta-light);
+            margin-bottom: 12px;
+        }
+        .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.3); max-width: 280px; line-height: 1.7; }
+        .footer-links-group { display: flex; gap: 60px; }
+        .footer-links-col h4 {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+        .footer-links-col ul { list-style: none; }
+        .footer-links-col li { margin-bottom: 10px; }
+        .footer-links-col a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-links-col a:hover { color: var(--gold-light); }
+        .footer-social { display: flex; gap: 16px; margin-top: 20px; }
+        .social-btn {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s, background 0.3s;
+            cursor: pointer;
+        }
+        .social-btn:hover { border-color: var(--terracotta); background: rgba(155,64,32,0.2); }
+        .social-btn img { width: 18px; height: 18px; border-radius: 50%; }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: var(--ink);
+            color: white;
+            padding: 16px 24px;
+            border-left: 3px solid var(--terracotta);
+            font-size: 14px;
+            z-index: 9999;
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            nav { padding: 18px 30px; }
+            .hero-content { padding: 0 40px 80px; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); padding: 40px; }
+            .collections-section, .artisans-section { padding: 80px 30px; }
+            .newsletter { padding: 80px 30px; flex-direction: column; }
+            .newsletter-form { max-width: 100%; width: 100%; }
+            .contact-strip { flex-direction: column; gap: 30px; text-align: center; padding: 60px 30px; }
+            footer { padding: 40px 30px; }
+            .footer-top { flex-direction: column; gap: 40px; }
+            .footer-links-group { gap: 30px; }
+            .about-strip { grid-template-columns: 1fr; }
+            .about-img { height: 400px; }
+            .about-text { padding: 60px 30px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 42px; }
+            .hero-content { padding: 0 24px 60px; }
+            .collections-grid { grid-template-columns: repeat(2, 1fr); }
+            .artisans-row { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: repeat(2, 1fr); padding: 30px 20px; }
+        }
+        @media (max-width: 480px) {
+            .collections-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 34px; }
+            .hero-actions { flex-direction: column; align-items: flex-start; }
+        }
+        .btn-login {
+    background: linear-gradient(135deg, #9B4020, #C0603A);
+    color: white;
+    padding: 10px 28px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-family: 'Jost', sans-serif;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+/* Hover effet btn-login */
+.btn-login:hover {
+    background: linear-gradient(135deg, #C0603A, #9B4020);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(155, 64, 32, 0.3);
+}
+
+/* Hover effet btn-primary */
+.btn-primary:hover {
+    background: linear-gradient(135deg, #C0603A, #9B4020);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(155, 64, 32, 0.3);
+}
+
+/* Click effet */
+.btn-primary:active, .btn-login:active {
+    transform: scale(0.97);
+}
+
+.btn-primary::after, .btn-login::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: all 0.5s;
+}
+
+.btn-primary:hover::after, .btn-login:hover::after {
+    left: 100%;
+}
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+    <a href="VPR.html" class="nav-logo"><img src="image/logo.png" alt=""></a>
+    <ul class="nav-links">
+        <li><a href="VPR.html" class="active">Accueil</a></li>
+        <li><a href="coll.html">Collections</a></li>
+        <li><a href="arrti.html">Artisans</a></li>
+     
+        <li><a href="contact.html">Contact</a></li>
+         <li><button class="btn-login" onclick="window.location.href='login.html'">Login</button></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <img class="hero-img-overlay" src="image/tarwa.jpeg" alt="Artisane marocaine">
+    <div class="hero-content">
+       
+        <p class="hero-eyebrow">Patrimoine du Maroc</p>
+        <h1>L'Art de<br>la <em>Tradition</em><br>Vivante</h1>
+        <p class="hero-desc">
+            Des mains expertes perpétuent depuis des siècles un savoir-faire unique.
+            Chaque pièce est une histoire, chaque motif un héritage précieux.
+        </p>
+        <div class="hero-actions">
+            <a href="coll.html" class="btn-primary">Découvrir les Collections</a>
+            <a href="arrti.html" class="btn-outline">Rencontrer les Artisans</a>
+        </div>
+    </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+    <div class="ticker-inner" id="tickerInner"></div>
+</div>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip">
+    <div class="about-img reveal">
+        <img src="femme_foyer.jpg" alt="Artisane potière">
+    </div>
+    <div class="about-text reveal">
+        <p class="section-eyebrow">Notre Histoire</p>
+        <h2>Préserver la <em>Tradition</em>,<br>Célébrer l'Authenticité</h2>
+        <p>
+            L'artisanat marocain est un héritage précieux transmis de génération en génération.
+            Nos artisans partenaires perpétuent des techniques ancestrales vieilles de plusieurs siècles,
+            créant des pièces uniques qui incarnent la richesse culturelle et l'identité profonde du Maroc.
+        </p>
+        <a href="arrti.html" class="btn-primary" style="align-self: flex-start;">Nos Artisans</a>
+    </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-row">
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">Artisans Partenaires</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="1000">0</div>
+        <div class="stat-label">Produits Uniques</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="6">0</div>
+        <div class="stat-label">Collections</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Fait Main</div>
+    </div>
+</div>
+
+<!-- COLLECTIONS -->
+<section class="collections-section">
+    <div class="section-header reveal">
+        <div>
+            <p class="section-eyebrow">Notre Savoir-Faire</p>
+            <h2>Nos <em>Collections</em></h2>
+        </div>
+        <a href="coll.html">Voir Tout →</a>
+    </div>
+    <div class="collections-grid" id="collectionsGrid"></div>
+</section>
+
+<!-- ARTISANS TEASER -->
+<section class="artisans-section">
+    <div class="section-header reveal">
+        <div>
+            <p class="section-eyebrow">Maîtres Artisans</p>
+            <h2>Rencontrez <em>nos Artisans</em></h2>
+        </div>
+        <a href="arrti.html">Voir Tous →</a>
+    </div>
+    <div class="artisans-row" id="artisansRow"></div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+    <div class="newsletter-text reveal">
+        <h2>Restez <em>Inspiré</em></h2>
+        <p>Recevez nos dernières collections, histoires d'artisans et actualités de l'artisanat marocain directement dans votre boîte mail.</p>
+    </div>
+    <div class="reveal" style="flex:1; max-width:440px;">
+        <div class="newsletter-form">
+            <input type="email" id="emailInput" placeholder="Votre adresse e-mail">
+            <button onclick="subscribeNewsletter()">S'inscrire</button>
+        </div>
+        <div class="nl-success" id="nlSuccess">✓ Merci ! Vous êtes inscrit(e).</div>
+        <p style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:12px; letter-spacing:0.05em;">Pas de spam. Désabonnement en un clic.</p>
+    </div>
+</section>
+
+<!-- CONTACT TEASER -->
+<section class="contact-strip reveal">
+    <div>
+        <h2>Visitez Nos Ateliers</h2>
+        <p>Découvrez le processus de création en direct et rencontrez nos artisans.</p>
+    </div>
+    <a href="contact.html">Réserver une Visite</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div>
+            <div class="footer-logo">Artisanat Marocain</div>
+            <p class="footer-tagline">Préserver la tradition, célébrer l'authenticité du patrimoine marocain depuis des générations.</p>
+            <div class="footer-social">
+                <div class="social-btn">
+                    <img src="facebook.png" alt="Facebook">
+                </div>
+                <div class="social-btn" title="Instagram">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="rgba(255,255,255,0.6)" stroke="none"/></svg>
+                </div>
+            </div>
+        </div>
+        <div class="footer-links-group">
+            <div class="footer-links-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="VPR.html">Accueil</a></li>
+                    <li><a href="coll.html">Collections</a></li>
+                    <li><a href="arrti.html">Artisans</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Collections</h4>
+                <ul id="footerCollections"></ul>
+            </div>
+            <div class="footer-links-col">
+                <h4>Informations</h4>
+                <ul>
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">À propos</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Artisanat Marocain — Tous droits réservés</span>
+        <span class="footer-copy">Casablanca, Maroc</span>
+    </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+   
+// ═══════════════════════════════════════════════════════
+// BASE DE DONNÉES (In-Memory)
+// ═══════════════════════════════════════════════════════
+const DB = {
+    collections: [
+        {
+            img: 'image/Tapis-Berbere-–-Beni-Ouarain-–-TB64.jpg',
+            id: 'tapis Beni Ouarain',
+            num: '01',
+            title: 'Tapis Beni Ouarain',
+            subtitle: 'Tissage Ancestral',
+            desc: 'Tapis tissés à la main dans les montagnes de l\'Atlas, chaque motif raconte une histoire.',
+            badge: 'Tradition',
+            bg: 'bg-tapis',           
+            href: 'coll.html'
+        },
+        {
+            id: 'Tapis Boucherouite',
+            num: '02',
+            title: 'Tapis Boucherouite',
+            subtitle: '',
+            desc: 'Tapis Boucherouite tissé à la main à partir de textiles recyclés, chaque pièce est unique et pleine de caractère.',
+            badge: 'Unique',
+             bg: 'bg-TapisTaznakht',
+            img: 'image/benchrouti.jpg',
+            href: 'coll.html'
+        },
+        {
+            id: 'Tapis M\'rirt',
+            num: '03',
+            title: 'Tapis M\'rirt',
+            subtitle: 'Laine et Élégance',
+            desc: 'Tapis Mrirt en laine dense, tissé à la main, au toucher exceptionnel et à l’élégance sobre.',
+            badge: 'Luxe',
+            
+            img: 'image/Photoroom_20251124_221052.webp',
+            href: 'coll.html'
+        },
+        {
+            id: 'Tapis Boujaad',
+            num: '04',
+            title: 'Tapis Boujaad',
+            subtitle: 'L’élégance d’un tissage berbère authentique',
+            desc: 'Tapis Boujaad, nuances douces et esprit vintage pour une ambiance unique.',
+            badge: 'Vintage',
+            bg: 'bg-tapisBoujaad',
+            img: 'image/BmTpME-00008-B01-online-medina-boujaad-green-brown-wool-rug-bedroom.webp',
+            href: 'coll.html'
+        },
+        {
+            id: 'lanternes',
+            num: '05',
+            title: 'Lanternes & Luminaires',
+            subtitle: 'Lumière et Atmosphère',
+            desc: 'Tapis Kilim Zanafi tissé à la main, aux motifs géométriques et à l’élégance brute.',
+            badge: 'Moderne',
+            bg: 'bg-TapisTaznakht',
+            img: '',
+            href: 'coll.html'
+        },
+        
+        {
+            id: 'tapis Taznakht',
+            num: '06',
+            title: 'Tapis Taznakht',
+            subtitle: 'L’art du tissage berbère raffiné',
+            desc: 'apis Taznakht tissé à la main, aux motifs riches et aux couleurs profondes, reflet d’un savoir-faire ancestral.',
+            badge: 'tapisKilim',
+            bg: 'bg-TapisTaznakht',
+            img: 'image/kilim.webp',
+            href: 'coll.html'
+        }
+    ],
+
+    artisans: [
+        {
+            id: 'fatima',
+            name: 'Fatima El Amrani',
+            role: 'Maître Tisseuse · Azilal',
+            bio: '30 ans d\'expérience dans le tissage berbère des montagnes de l\'Atlas.',
+            img: 'femme-en-train-de-faire-de-la-poterie.webp',
+            specialty: 'Tapis Berbères',
+            href: 'arrti.html'
+        },
+        {
+            id: 'hassan',
+            name: 'Hassan Tazi',
+            role: 'Maître Potier · Fès',
+            bio: 'Potier de 5ème génération, maître du bleu de Fès depuis 1890.',
+            img: null,
+            emoji: '🏺',
+            specialty: 'Céramique',
+            href: 'arrti.html'
+        },
+        {
+            id: 'aicha',
+            name: 'Aïcha Bennis',
+            role: 'Maître Brodeuse · Rabat',
+            bio: 'Reconnue comme l\'une des meilleures brodeuses du Maroc, spécialiste de la broderie de Rabat.',
+            img: 'femme-qui-fait-de-la-poterie.webp',
+            specialty: 'Broderie',
+            href: 'arrti.html'
+        },
+        {
+            id: 'youssef',
+            name: 'Youssef Alaoui',
+            role: 'Maître Maroquinier · Marrakech',
+            bio: '20 ans dans les souks de Marrakech, expert en cuir tanné naturellement.',
+            img: null,
+            emoji: '🧳',
+            specialty: 'Maroquinerie',
+            href: 'arrti.html'
+        }
+    ],
+
+    newsletter: [ ],   // stocke les abonnés en mémoire
+
+    stats: {
+        artisans: 500,
+        produits: 1000,
+        collections: 6,
+        faitMain: '100%'
+    },
+
+    ticker: [
+        'Livraison dans tout le Maroc',
+        'Pièces 100% Faites Main',
+        'Artisans Certifiés',
+        'Héritage Berbère Authentique',
+        'Depuis des Générations',
+        'Matériaux Naturels et Durables'
+    ]
+};
+
+// ═══════════════════════════════════════════════════════
+// RENDER FUNCTIONS
+// ═══════════════════════════════════════════════════════
+
+function renderTicker() {
+    const inner = document.getElementById('tickerInner');
+    const items = [...DB.ticker, ...DB.ticker]; // duplicate for infinite loop
+    inner.innerHTML = items.map(t =>
+        `<span class="ticker-item">${t} <span class="ticker-sep">✦</span></span>`
+    ).join('');
+}
+
+function renderCollections() {
+    const grid = document.getElementById('collectionsGrid');
+    grid.innerHTML = DB.collections.map(c => `
+        <div class="col-card" onclick="location.href='${c.href}'" role="button" tabindex="0">
+            <div class="col-card-bg ${c.bg}">
+                ${c.img ? `<img src="${c.img}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;opacity:0.7;" onerror="this.style.display='none'">` : ''}
+                ${!c.img && c.emoji ? `<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:80px;opacity:0.25;">${c.emoji}</div>` : ''}
+            </div>
+            <div class="col-card-overlay"></div>
+            <div class="col-card-badge">${c.badge}</div>
+            <div class="col-card-content">
+                <div class="col-card-num">${c.num}</div>
+                <div class="col-card-title">${c.title}</div>
+                <div class="col-card-desc">${c.desc}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderArtisans() {
+    const row = document.getElementById('artisansRow');
+    row.innerHTML = DB.artisans.map(a => `
+        <a href="${a.href}" class="artisan-teaser reveal">
+            ${a.img
+                ? `<img class="artisan-avatar" src="${a.img}" alt="${a.name}" onerror="this.outerHTML='<div class=\\'artisan-avatar-placeholder\\'>${a.emoji || '👤'}</div>'">`
+                : `<div class="artisan-avatar-placeholder">${a.emoji || '👤'}</div>`
+            }
+            <div class="artisan-info">
+                <div class="artisan-name">${a.name}</div>
+                <div class="artisan-role">${a.role}</div>
+                <div class="artisan-bio">${a.bio}</div>
+            </div>
+        </a>
+    `).join('');
+}
+
+function renderFooterCollections() {
+    const list = document.getElementById('footerCollections');
+    list.innerHTML = DB.collections.map(c =>
+        `<li><a href="${c.href}">${c.title}</a></li>`
+    ).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// INTERACTIONS
+// ═══════════════════════════════════════════════════════
+
+function subscribeNewsletter() {
+    const input = document.getElementById('emailInput');
+    const email = input.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showToast('Veuillez entrer une adresse e-mail valide.');
+        return;
+    }
+    if (DB.newsletter.includes(email)) {
+        showToast('Vous êtes déjà inscrit(e) !');
+        return;
+    }
+    DB.newsletter.push(email);
+    input.value = '';
+    document.getElementById('nlSuccess').style.display = 'block';
+    showToast('✓ Inscription réussie ! Bienvenue.');
+    console.log('Newsletter DB:', DB.newsletter);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+// Counter animation
+function animateCounters() {
+    document.querySelectorAll('[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.target.includes('+') ? '+' : '';
+        let current = 0;
+        const step = Math.ceil(target / 60);
+        const timer = setInterval(() => {
+            current = Math.min(current + step, target);
+            el.textContent = current.toLocaleString('fr-FR') + (current === target ? '+' : '');
+            if (current >= target) clearInterval(timer);
+        }, 25);
+    });
+}
+
+// Scroll reveal
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if (entry.target.querySelector('[data-target]')) animateCounters();
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.1 });
+
+// Nav shadow
+window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    nav.style.boxShadow = window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,0.1)' : 'none';
+});
+
+// Enter on newsletter
+document.addEventListener('DOMContentLoaded', () => {
+    renderTicker();
+    renderCollections();
+    renderArtisans();
+    renderFooterCollections();
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    document.getElementById('emailInput').addEventListener('keydown', e => {
+        if (e.key === 'Enter') subscribeNewsletter();
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Artisans — Artisanat Marocain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --terracotta: #9B4020;
+            --terracotta-light: #C0603A;
+            --sand: #F2E8D9;
+            --sand-dark: #E8D5BB;
+            --ink: #1A1208;
+            --warm-gray: #8A7B6F;
+            --gold: #C4973D;
+            --gold-light: #E8C06A;
+            --cream: #FDFAF5;
+            --white: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Jost', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 60px;
+            background: rgba(253,250,245,0.95);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(155,64,32,0.12);
+            transition: box-shadow 0.3s;
+        }
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+        .nav-links { display: flex; gap: 40px; list-style: none; }
+        .nav-links a {
+            font-size: 13px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 72vh;
+            display: flex;
+            align-items: flex-end;
+            padding: 120px 60px 80px;
+            position: relative;
+            overflow: hidden;
+            background: var(--ink);
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 60%, rgba(155,64,32,0.4) 0%, transparent 55%),
+                radial-gradient(ellipse at 75% 20%, rgba(196,151,61,0.18) 0%, transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+        }
+        .hero-img {
+            position: absolute;
+            right: 0; top: 0;
+            width: 52%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.28;
+            mask-image: linear-gradient(to left, rgba(0,0,0,0.85) 0%, transparent 80%);
+            -webkit-mask-image: linear-gradient(to left, rgba(0,0,0,0.85) 0%, transparent 80%);
+        }
+        .hero-pattern {
+            position: absolute; inset: 0;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-rule='evenodd'%3E%3Cpath d='M40 0L80 40L40 80L0 40z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+        }
+        .hero-content { position: relative; z-index: 2; max-width: 660px; }
+        .hero-eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(44px, 6vw, 82px);
+            line-height: 1.05;
+            color: white;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+        }
+        .hero h1 em { font-style: italic; color: var(--gold-light); }
+        .hero-desc {
+            font-size: 17px;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.55);
+            font-weight: 300;
+            max-width: 500px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+        .hero-line {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(to right, var(--terracotta), transparent);
+        }
+
+        /* ── FILTER BAR ── */
+        .filter-bar {
+            background: var(--sand);
+            padding: 24px 60px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--sand-dark);
+            position: sticky;
+            top: 65px;
+            z-index: 100;
+        }
+        .filter-label {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--warm-gray);
+            margin-right: 8px;
+        }
+        .filter-btn {
+            padding: 8px 20px;
+            border: 1px solid rgba(155,64,32,0.25);
+            background: transparent;
+            color: var(--warm-gray);
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 1px;
+            transition: all 0.3s;
+        }
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--terracotta);
+            color: white;
+            border-color: var(--terracotta);
+        }
+        .search-input {
+            margin-left: auto;
+            padding: 8px 18px;
+            border: 1px solid rgba(155,64,32,0.2);
+            background: white;
+            font-family: 'Jost', sans-serif;
+            font-size: 13px;
+            color: var(--ink);
+            outline: none;
+            width: 220px;
+            transition: border-color 0.3s;
+        }
+        .search-input::placeholder { color: var(--warm-gray); }
+        .search-input:focus { border-color: var(--terracotta); }
+
+        /* ── ARTISANS LIST ── */
+        .artisans-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 60px;
+        }
+        .section-eyebrow {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 16px;
+        }
+
+        /* Big cards */
+        .artisan-card {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            margin-bottom: 4px;
+            background: white;
+            overflow: hidden;
+            transition: box-shadow 0.4s;
+        }
+        .artisan-card:hover { box-shadow: 0 20px 60px rgba(26,18,8,0.1); }
+        .artisan-card.alt { grid-template-columns: 1.2fr 1fr; }
+        .artisan-card.alt .card-img { order: 2; }
+        .artisan-card.alt .card-body { order: 1; }
+
+        .card-img {
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+        }
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .artisan-card:hover .card-img img { transform: scale(1.06); }
+        .card-img-placeholder {
+            width: 100%; height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 100px;
+            opacity: 0.25;
+            min-height: 520px;
+        }
+        .card-badge {
+            position: absolute;
+            top: 28px; left: 28px;
+            background: rgba(155,64,32,0.92);
+            color: white;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 7px 16px;
+            backdrop-filter: blur(8px);
+        }
+        .card-num {
+            position: absolute;
+            bottom: 28px; right: 28px;
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            color: rgba(255,255,255,0.1);
+            line-height: 1;
+            font-style: italic;
+            pointer-events: none;
+        }
+
+        .card-body {
+            padding: 64px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .card-name {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(30px, 3vw, 44px);
+            color: var(--ink);
+            margin-bottom: 8px;
+            line-height: 1.1;
+        }
+        .card-role {
+            font-size: 12px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--terracotta);
+            margin-bottom: 28px;
+        }
+        .card-desc {
+            font-size: 16px;
+            line-height: 1.9;
+            color: var(--warm-gray);
+            font-weight: 300;
+            margin-bottom: 24px;
+        }
+        .card-quote {
+            border-left: 2px solid var(--gold);
+            padding: 16px 24px;
+            background: var(--sand);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 18px;
+            color: var(--ink);
+            line-height: 1.65;
+            margin-bottom: 30px;
+        }
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 36px;
+        }
+        .skill-chip {
+            padding: 6px 16px;
+            border: 1px solid var(--sand-dark);
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            color: var(--warm-gray);
+            background: var(--cream);
+            transition: all 0.3s;
+            cursor: default;
+        }
+        .skill-chip:hover {
+            background: var(--terracotta);
+            color: white;
+            border-color: var(--terracotta);
+        }
+        .card-btn {
+            display: inline-block;
+            align-self: flex-start;
+            background: var(--ink);
+            color: white;
+            padding: 13px 32px;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.2s;
+        }
+        .card-btn:hover { background: var(--terracotta); transform: translateY(-2px); }
+
+        /* ── STATS BANNER ── */
+        .stats-banner {
+            background: var(--ink);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            padding: 60px;
+        }
+        .stat-item { text-align: center; border-right: 1px solid rgba(255,255,255,0.06); padding: 20px; }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 50px;
+            color: var(--gold-light);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+        }
+
+        /* ── VISIT CTA ── */
+        .visit-cta {
+            background: var(--terracotta);
+            padding: 100px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .visit-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 4vw, 56px);
+            color: white;
+            line-height: 1.1;
+        }
+        .visit-cta h2 em { font-style: italic; color: var(--gold-light); }
+        .visit-cta p {
+            font-size: 17px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.8;
+            margin-bottom: 36px;
+        }
+        .visit-features {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .visit-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 18px;
+            color: rgba(255,255,255,0.85);
+        }
+        .visit-icon {
+            width: 44px; height: 44px;
+            border: 1px solid rgba(255,255,255,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        .visit-feature-text strong {
+            display: block;
+            font-size: 14px;
+            letter-spacing: 0.06em;
+            margin-bottom: 4px;
+            color: white;
+        }
+        .visit-feature-text span { font-size: 13px; color: rgba(255,255,255,0.55); }
+        .btn-white {
+            display: inline-block;
+            background: white;
+            color: var(--terracotta);
+            padding: 14px 36px;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .btn-white:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+
+        /* ── NO RESULTS ── */
+        .no-results {
+            text-align: center;
+            padding: 80px 20px;
+            display: none;
+        }
+        .no-results p { font-size: 18px; color: var(--warm-gray); }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #110D06;
+            padding: 60px;
+        }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 30px;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            color: var(--terracotta-light);
+            margin-bottom: 10px;
+        }
+        .footer-tagline { font-size: 13px; color: rgba(255,255,255,0.28); max-width: 260px; line-height: 1.7; }
+        .footer-links-group { display: flex; gap: 60px; }
+        .footer-col h4 {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            margin-bottom: 16px;
+        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 10px; }
+        .footer-col a {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--gold-light); }
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.2); }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            nav { padding: 18px 30px; }
+            .hero { padding: 120px 30px 70px; }
+            .artisans-wrapper { padding: 60px 30px; }
+            .stats-banner { padding: 40px 20px; }
+            .visit-cta { padding: 70px 30px; grid-template-columns: 1fr; gap: 40px; }
+            footer { padding: 40px 30px; }
+            .footer-top { flex-direction: column; gap: 40px; }
+            .footer-links-group { gap: 30px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .artisan-card, .artisan-card.alt { grid-template-columns: 1fr; }
+            .artisan-card.alt .card-img { order: 1; }
+            .artisan-card.alt .card-body { order: 2; }
+            .card-img, .card-img-placeholder { min-height: 320px; }
+            .card-body { padding: 40px 28px; }
+            .stats-banner { grid-template-columns: repeat(2, 1fr); }
+            .filter-bar { padding: 16px 20px; top: 57px; }
+            .search-input { width: 100%; margin-left: 0; }
+        }
+        @media (max-width: 480px) {
+            .stats-banner { grid-template-columns: 1fr 1fr; padding: 30px 16px; }
+            .stat-num { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="mainNav">
+    <a href="VPR.html" class="nav-logo">Artisanat Marocain</a>
+    <ul class="nav-links">
+        <li><a href="VPR.html">Accueil</a></li>
+        <li><a href="coll.html">Collections</a></li>
+        <li><a href="arrti.html" class="active">Artisans</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-pattern"></div>
+    <img class="hero-img" src="femme-qui-fait-de-la-poterie.webp" alt="Artisane marocaine">
+    <div class="hero-content">
+        <p class="hero-eyebrow">Gardiens du Patrimoine</p>
+        <h1>Nos <em>Maîtres</em><br>Artisans</h1>
+        <p class="hero-desc">
+            Derrière chaque création se cache une histoire humaine. Des mains expertes,
+            des savoir-faire transmis de génération en génération, une passion indéfectible
+            pour l'art et la tradition marocaine.
+        </p>
+    </div>
+    <div class="hero-line"></div>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar" id="filterBar">
+    <span class="filter-label">Filtrer :</span>
+    <button class="filter-btn active" data-filter="all">Tous</button>
+    <button class="filter-btn" data-filter="tissage">Tissage</button>
+    <button class="filter-btn" data-filter="ceramique">Céramique</button>
+    <button class="filter-btn" data-filter="broderie">Broderie</button>
+    <button class="filter-btn" data-filter="maroquinerie">Maroquinerie</button>
+    <input class="search-input" type="text" id="searchInput" placeholder="Rechercher un artisan...">
+</div>
+
+<!-- ARTISANS -->
+<div class="artisans-wrapper">
+    <div id="artisansList"></div>
+    <div class="no-results" id="noResults">
+        <p>Aucun artisan ne correspond à votre recherche.</p>
+    </div>
+</div>
+
+<!-- STATS -->
+<div class="stats-banner reveal">
+    <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Maîtres Artisans</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">100+</div>
+        <div class="stat-label">Années d'expérience cumulées</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Villes du Maroc</div>
+    </div>
+    <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Techniques Ancestrales</div>
+    </div>
+</div>
+
+<!-- VISIT CTA -->
+<section class="visit-cta reveal">
+    <div>
+        <h2>Visitez Nos <em>Ateliers</em></h2>
+    </div>
+    <div>
+        <p>
+            Une expérience unique au cœur de l'artisanat marocain. Découvrez les gestes ancestraux,
+            rencontrez nos maîtres artisans et assistez à la naissance d'une œuvre authentique.
+        </p>
+        <div class="visit-features" style="margin-bottom:36px;">
+            <div class="visit-feature">
+                <div class="visit-icon">🏺</div>
+                <div class="visit-feature-text">
+                    <strong>Démonstration en Direct</strong>
+                    <span>Observez les artisans à l'œuvre dans leurs ateliers traditionnels</span>
+                </div>
+            </div>
+            <div class="visit-feature">
+                <div class="visit-icon">🤝</div>
+                <div class="visit-feature-text">
+                    <strong>Échange & Rencontre</strong>
+                    <span>Dialoguez directement avec nos maîtres artisans</span>
+                </div>
+            </div>
+            <div class="visit-feature">
+                <div class="visit-icon">🎨</div>
+                <div class="visit-feature-text">
+                    <strong>Atelier Participatif</strong>
+                    <span>Essayez vous-même les techniques traditionnelles</span>
+                </div>
+            </div>
+        </div>
+        <a href="contact.html" class="btn-white">Réserver une Visite</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div>
+            <div class="footer-logo">Artisanat Marocain</div>
+            <p class="footer-tagline">Soutenir les artisans, préserver le patrimoine marocain depuis des générations.</p>
+        </div>
+        <div class="footer-links-group">
+            <div class="footer-col">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="VPR.html">Accueil</a></li>
+                    <li><a href="coll.html">Collections</a></li>
+                    <li><a href="arrti.html">Artisans</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Artisans</h4>
+                <ul id="footerArtisans"></ul>
+            </div>
+            <div class="footer-col">
+                <h4>Informations</h4>
+                <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span class="footer-copy">© 2025 Artisanat Marocain — Tous droits réservés</span>
+        <span class="footer-copy">Maroc</span>
+    </div>
+</footer>
+
+<script>
+// ═══════════════════════════════════════════════════════
+// BASE DE DONNÉES — Artisans
+// ═══════════════════════════════════════════════════════
+const DB = {
+    artisans: [
+        {
+            id: 'fatima',
+            num: '01',
+            name: 'Fatima El Amrani',
+            role: 'Maître Tisseuse',
+            city: 'Azilal',
+            category: 'tissage',
+            badge: 'Tissage',
+            img: 'femme-en-train-de-faire-de-la-poterie.webp',
+            emoji: null,
+            imgBg: 'linear-gradient(135deg, #5C3317 0%, #9B6040 100%)',
+            desc: 'Originaire des montagnes de l\'Atlas, Fatima perpétue l\'art du tissage berbère depuis plus de 30 ans. Elle a appris les techniques ancestrales auprès de sa grand-mère à l\'âge de 12 ans. Chaque tapis qu\'elle crée raconte une histoire unique, inspirée par la nature environnante et les symboles traditionnels de sa tribu.',
+            quote: 'Chaque fil que je tisse porte en lui la mémoire de mes ancêtres. C\'est plus qu\'un métier, c\'est une mission de préservation culturelle.',
+            skills: ['Tapis Azilal', 'Tissage manuel', 'Teinture naturelle', 'Motifs berbères'],
+            alt: false
+        },
+        {
+            id: 'hassan',
+            num: '02',
+            name: 'Hassan Tazi',
+            role: 'Maître Potier',
+            city: 'Fès',
+            category: 'ceramique',
+            badge: 'Céramique',
+            img: null,
+            emoji: '🏺',
+            imgBg: 'linear-gradient(135deg, #2B4A5A 0%, #4E8098 100%)',
+            desc: 'Hassan est un potier de cinquième génération, travaillant dans la médina de Fès. Son atelier familial existe depuis 1890. Il maîtrise l\'art délicat de la céramique bleue de Fès, utilisant des techniques millénaires et des pigments naturels. Son travail a été exposé dans plusieurs musées internationaux.',
+            quote: 'Le bleu de Fès n\'est pas qu\'une couleur, c\'est l\'âme de notre ville. Chaque nuance raconte des siècles d\'histoire.',
+            skills: ['Poterie bleue de Fès', 'Zellige', 'Peinture à la main', 'Émaillage traditionnel'],
+            alt: true
+        },
+        {
+            id: 'aicha',
+            num: '03',
+            name: 'Aïcha Bennis',
+            role: 'Maître Brodeuse',
+            city: 'Rabat',
+            category: 'broderie',
+            badge: 'Broderie',
+            img: 'femme-qui-fait-de-la-poterie.webp',
+            emoji: null,
+            imgBg: 'linear-gradient(135deg, #3B1A2E 0%, #7A4060 100%)',
+            desc: 'Aïcha est reconnue comme l\'une des meilleures brodeuses du Maroc, spécialisée dans la broderie de Rabat. Elle forme également des jeunes femmes pour transmettre cet art délicat. Ses créations ornent les caftans royaux et ont été présentées lors de défilés internationaux. Son atelier emploie 15 artisanes.',
+            quote: 'La broderie est une méditation. Chaque point demande patience et précision. C\'est ainsi que naît la beauté.',
+            skills: ['Broderie de Rabat', 'Point compté', 'Fils de soie', 'Motifs floraux'],
+            alt: false
+        },
+        {
+            id: 'youssef',
+            num: '04',
+            name: 'Youssef Alaoui',
+            role: 'Maître Maroquinier',
+            city: 'Marrakech',
+            category: 'maroquinerie',
+            badge: 'Maroquinerie',
+            img: null,
+            emoji: '🧳',
+            imgBg: 'linear-gradient(135deg, #4A2010 0%, #8B5030 100%)',
+            desc: 'Youssef dirige un atelier de maroquinerie traditionnelle dans les souks de Marrakech depuis 20 ans. Il travaille exclusivement avec du cuir tanné naturellement dans les tanneries ancestrales de la ville. Expert en couture à la main et en gravure sur cuir, il crée des pièces uniques alliant tradition et modernité.',
+            quote: 'Le cuir marocain a une âme. Mon rôle est de la révéler à travers mes créations, en respectant les techniques de nos ancêtres.',
+            skills: ['Tannage naturel', 'Couture main', 'Gravure sur cuir', 'Babouches'],
+            alt: true
+        }
+    ]
+};
+
+// ═══════════════════════════════════════════════════════
+// RENDER
+// ═══════════════════════════════════════════════════════
+function renderArtisans(list) {
+    const container = document.getElementById('artisansList');
+    const noResults = document.getElementById('noResults');
+
+    if (list.length === 0) {
+        container.innerHTML = '';
+        noResults.style.display = 'block';
+        return;
+    }
+    noResults.style.display = 'none';
+
+    container.innerHTML = list.map(a => `
+        <article class="artisan-card ${a.alt ? 'alt' : ''} reveal" data-category="${a.category}" data-name="${a.name.toLowerCase()}">
+            <div class="card-img">
+                ${a.img
+                    ? `<img src="${a.img}" alt="${a.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                       <div class="card-img-placeholder" style="display:none; background:${a.imgBg};">${a.emoji || '🧑‍🎨'}</div>`
+                    : `<div class="card-img-placeholder" style="background:${a.imgBg};">${a.emoji || '🧑‍🎨'}</div>`
+                }
+                <div class="card-badge">${a.badge}</div>
+                <div class="card-num">${a.num}</div>
+            </div>
+            <div class="card-body">
+                <p class="section-eyebrow">${a.city}</p>
+                <h2 class="card-name">${a.name}</h2>
+                <p class="card-role">${a.role} · ${a.city}</p>
+                <p class="card-desc">${a.desc}</p>
+                <blockquote class="card-quote">"${a.quote}"</blockquote>
+                <div class="skills-row">
+                    ${a.skills.map(s => `<span class="skill-chip">${s}</span>`).join('')}
+                </div>
+                <a href="contact.html" class="card-btn">Prendre Contact</a>
+            </div>
+        </article>
+    `).join('');
+
+    // Trigger reveal observer on newly rendered elements
+    document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+        el.classList.add('observed');
+        revealObserver.observe(el);
+    });
+}
+
+function renderFooterArtisans() {
+    const ul = document.getElementById('footerArtisans');
+    ul.innerHTML = DB.artisans.map(a =>
+        `<li><a href="arrti.html">${a.name}</a></li>`
+    ).join('');
+}
+
+// ═══════════════════════════════════════════════════════
+// FILTER & SEARCH
+// ═══════════════════════════════════════════════════════
+let currentFilter = 'all';
+let currentSearch = '';
+
+function applyFilters() {
+    const filtered = DB.artisans.filter(a => {
+        const matchCat = currentFilter === 'all' || a.category === currentFilter;
+        const matchSearch = a.name.toLowerCase().includes(currentSearch) ||
+                            a.city.toLowerCase().includes(currentSearch) ||
+                            a.category.toLowerCase().includes(currentSearch) ||
+                            a.skills.some(s => s.toLowerCase().includes(currentSearch));
+        return matchCat && matchSearch;
+    });
+    renderArtisans(filtered);
+}
+
+document.getElementById('filterBar').addEventListener('click', e => {
+    if (e.target.classList.contains('filter-btn')) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        currentFilter = e.target.dataset.filter;
+        applyFilters();
+    }
+});
+
+document.getElementById('searchInput').addEventListener('input', e => {
+    currentSearch = e.target.value.toLowerCase().trim();
+    applyFilters();
+});
+
+// ═══════════════════════════════════════════════════════
+// SCROLL REVEAL
+// ═══════════════════════════════════════════════════════
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.08 });
+
+// Nav shadow
+window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').style.boxShadow =
+        window.scrollY > 20 ? '0 4px 30px rgba(0,0,0,0.1)' : 'none';
+});
+
+// ═══════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', () => {
+    renderArtisans(DB.artisans);
+    renderFooterArtisans();
+
+    // Observe static reveal elements
+    document.querySelectorAll('.reveal:not(.observed)').forEach(el => {
+        el.classList.add('observed');
+        revealObserver.observe(el);
+    });
+});
+</script>
+</body>
+</html>
