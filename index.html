@@ -95,8 +95,8 @@
         .hero-img-overlay {
             position: absolute;
             right: 0; top: 0;
-            
-            height: 100%;
+            width: 60%;
+            height: 110%;
             object-fit: cover;
             opacity: 1;
             mask-image: linear-gradient(to left, rgba(0,0,0,0.9) 0%, transparent 80%);
@@ -704,11 +704,11 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-    <a href="VPR.html" class="nav-logo"><img src="image/logo.png" alt=""></a>
+    <a href="index.html" class="nav-logo"><img src="image/logo.png" alt=""></a>
     <ul class="nav-links">
-        <li><a href="VPR.html" class="active">Accueil</a></li>
-        <li><a href="coll.html">Collections</a></li>
-        <li><a href="arrti.html">Artisans</a></li>
+        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="collection.html">Collections</a></li>
+        <li><a href="artisans.html">Artisans</a></li>
      
         <li><a href="contact.html">Contact</a></li>
          <li><button class="btn-login" onclick="window.location.href='login.html'">Login</button></li>
@@ -729,8 +729,8 @@
             Chaque pièce est une histoire, chaque motif un héritage précieux.
         </p>
         <div class="hero-actions">
-            <a href="coll.html" class="btn-primary">Découvrir les Collections</a>
-            <a href="arrti.html" class="btn-outline">Rencontrer les Artisans</a>
+            <a href="collection.html" class="btn-primary">Découvrir les Collections</a>
+            <a href="artisans.html" class="btn-outline">Rencontrer les Artisans</a>
         </div>
     </div>
 </section>
@@ -753,7 +753,7 @@
             Nos artisans partenaires perpétuent des techniques ancestrales vieilles de plusieurs siècles,
             créant des pièces uniques qui incarnent la richesse culturelle et l'identité profonde du Maroc.
         </p>
-        <a href="arrti.html" class="btn-primary" style="align-self: flex-start;">Nos Artisans</a>
+        <a href="artisans.html" class="btn-primary" style="align-self: flex-start;">Nos Artisans</a>
     </div>
 </section>
 
@@ -784,7 +784,7 @@
             <p class="section-eyebrow">Notre Savoir-Faire</p>
             <h2>Nos <em>Collections</em></h2>
         </div>
-        <a href="coll.html">Voir Tout →</a>
+        <a href="collection.html">Voir Tout →</a>
     </div>
     <div class="collections-grid" id="collectionsGrid"></div>
 </section>
@@ -796,7 +796,7 @@
             <p class="section-eyebrow">Maîtres Artisans</p>
             <h2>Rencontrez <em>nos Artisans</em></h2>
         </div>
-        <a href="arrti.html">Voir Tous →</a>
+        <a href="artisans.html">Voir Tous →</a>
     </div>
     <div class="artisans-row" id="artisansRow"></div>
 </section>
@@ -845,9 +845,9 @@
             <div class="footer-links-col">
                 <h4>Navigation</h4>
                 <ul>
-                    <li><a href="VPR.html">Accueil</a></li>
-                    <li><a href="coll.html">Collections</a></li>
-                    <li><a href="arrti.html">Artisans</a></li>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="collection.html">Collections</a></li>
+                    <li><a href="artisans.html">Artisans</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
@@ -889,8 +889,8 @@ const DB = {
             subtitle: 'Tissage Ancestral',
             desc: 'Tapis tissés à la main dans les montagnes de l\'Atlas, chaque motif raconte une histoire.',
             badge: 'Tradition',
-            bg: 'bg-tapis',           
-            href: 'coll.html'
+            bg: 'bg-tapisBeniOuarain',           
+            href: 'collection.html'
         },
         {
             id: 'Tapis Boucherouite',
@@ -899,9 +899,9 @@ const DB = {
             subtitle: '',
             desc: 'Tapis Boucherouite tissé à la main à partir de textiles recyclés, chaque pièce est unique et pleine de caractère.',
             badge: 'Unique',
-             bg: 'bg-TapisTaznakht',
+             bg: 'bg-tapisBeniOuarain',
             img: 'image/benchrouti.jpg',
-            href: 'coll.html'
+            href: 'collection.html'
         },
         {
             id: 'Tapis M\'rirt',
@@ -912,7 +912,7 @@ const DB = {
             badge: 'Luxe',
             
             img: 'image/Photoroom_20251124_221052.webp',
-            href: 'coll.html'
+            href: 'collection.html'
         },
         {
             id: 'Tapis Boujaad',
@@ -923,30 +923,30 @@ const DB = {
             badge: 'Vintage',
             bg: 'bg-tapisBoujaad',
             img: 'image/BmTpME-00008-B01-online-medina-boujaad-green-brown-wool-rug-bedroom.webp',
-            href: 'coll.html'
+            href: 'collection.html'
         },
         {
-            id: 'lanternes',
+            id: 'Tapis Taznakht',
             num: '05',
-            title: 'Lanternes & Luminaires',
-            subtitle: 'Lumière et Atmosphère',
-            desc: 'Tapis Kilim Zanafi tissé à la main, aux motifs géométriques et à l’élégance brute.',
+            title: 'Tapis Taznakht',
+            subtitle: 'L’héritage vibrant du sud marocain',
+            desc: 'e tapis Taznakht est un tapis berbère traditionnel originaire de la région de Taznakht, près de Ouarzazate. Reconnu pour ses couleurs chaudes et intenses comme le rouge, l’orange et le jaune, il reflète l’âme du désert et la richesse culturelle des tribus berbères.',
             badge: 'Moderne',
             bg: 'bg-TapisTaznakht',
-            img: '',
-            href: 'coll.html'
+            img: 'image/tapisTaznakht.jpg',
+            href: 'collection.html'
         },
         
         {
-            id: 'tapis Taznakht',
+            id: 'tapis kilim',
             num: '06',
-            title: 'Tapis Taznakht',
+            title: 'Tapis Kilim Zanafi',
             subtitle: 'L’art du tissage berbère raffiné',
-            desc: 'apis Taznakht tissé à la main, aux motifs riches et aux couleurs profondes, reflet d’un savoir-faire ancestral.',
-            badge: 'tapisKilim',
+            desc: 'Tapis Kilim Zanafi tissé à la main, aux motifs géométriques et à l’élégance brute.',
+            badge: 'Tradition',
             bg: 'bg-TapisTaznakht',
             img: 'image/kilim.webp',
-            href: 'coll.html'
+            href: 'collection.html'
         }
     ],
 
@@ -958,7 +958,7 @@ const DB = {
             bio: '30 ans d\'expérience dans le tissage berbère des montagnes de l\'Atlas.',
             img: 'femme-en-train-de-faire-de-la-poterie.webp',
             specialty: 'Tapis Berbères',
-            href: 'arrti.html'
+            href: 'artisans.html'
         },
         {
             id: 'hassan',
@@ -968,7 +968,7 @@ const DB = {
             img: null,
             emoji: '🏺',
             specialty: 'Céramique',
-            href: 'arrti.html'
+            href: 'artisans.html'
         },
         {
             id: 'aicha',
@@ -977,7 +977,7 @@ const DB = {
             bio: 'Reconnue comme l\'une des meilleures brodeuses du Maroc, spécialiste de la broderie de Rabat.',
             img: 'femme-qui-fait-de-la-poterie.webp',
             specialty: 'Broderie',
-            href: 'arrti.html'
+            href: 'artisans.html'
         },
         {
             id: 'youssef',
@@ -987,7 +987,7 @@ const DB = {
             img: null,
             emoji: '🧳',
             specialty: 'Maroquinerie',
-            href: 'arrti.html'
+            href: 'artisans.html'
         }
     ],
 

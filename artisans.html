@@ -521,11 +521,11 @@
 
 <!-- NAV -->
 <nav id="mainNav">
-    <a href="VPR.html" class="nav-logo">Artisanat Marocain</a>
+    <a href="index.html" class="nav-logo">Artisanat Marocain</a>
     <ul class="nav-links">
-        <li><a href="VPR.html">Accueil</a></li>
-        <li><a href="coll.html">Collections</a></li>
-        <li><a href="arrti.html" class="active">Artisans</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collection.html">Collections</a></li>
+        <li><a href="artisans.html" class="active">Artisans</a></li>
         <li><a href="contact.html">Contact</a></li>
     </ul>
 </nav>
@@ -634,9 +634,9 @@
             <div class="footer-col">
                 <h4>Navigation</h4>
                 <ul>
-                    <li><a href="VPR.html">Accueil</a></li>
-                    <li><a href="coll.html">Collections</a></li>
-                    <li><a href="arrti.html">Artisans</a></li>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="collection.html">Collections</a></li>
+                    <li><a href="artisans.html">Artisans</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
@@ -782,7 +782,7 @@ function renderArtisans(list) {
 function renderFooterArtisans() {
     const ul = document.getElementById('footerArtisans');
     ul.innerHTML = DB.artisans.map(a =>
-        `<li><a href="arrti.html">${a.name}</a></li>`
+        `<li><a href="artisans.html">${a.name}</a></li>`
     ).join('');
 }
 
