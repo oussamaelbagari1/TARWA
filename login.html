@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artisanat – Connexion</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --terracotta: #9B4020;
+      --terracotta-light: #C0603A;
+      --sand: #F2E8D9;
+      --sand-dark: #E8D5BB;
+      --ink: #1A1208;
+      --warm-gray: #8A7B6F;
+      --gold: #C4973D;
+      --gold-light: #E8C06A;
+      --cream: #FDFAF5;
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background-color: var(--cream);
+      display: flex;
+      align-items: stretch;
+      font-family: 'Jost', sans-serif;
+      color: var(--ink);
+      overflow: hidden;
+    }
+
+    /* ── Left decorative panel ── */
+    .panel-left {
+      width: 42%;
+      background-color: var(--terracotta);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 48px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .panel-left::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg,  rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 28px),
+        repeating-linear-gradient(-45deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 28px);
+      pointer-events: none;
+    }
+
+    .panel-left::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 480px;
+      height: 480px;
+      border-radius: 50%;
+      border: 60px solid rgba(196,151,61,.18);
+      pointer-events: none;
+    }
+
+    .ornament-ring {
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 40px solid rgba(232,192,106,.12);
+      pointer-events: none;
+    }
+
+    .panel-left-content { position: relative; z-index: 1; }
+
+    .panel-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .panel-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 3.4rem;
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--sand);
+      margin-bottom: 20px;
+    }
+    .panel-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .panel-divider {
+      width: 40px; height: 2px;
+      background: var(--gold);
+      margin: 0 0 18px;
+    }
+
+    .panel-desc {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: rgba(242,232,217,.58);
+      letter-spacing: .04em;
+      line-height: 1.8;
+      max-width: 260px;
+    }
+
+    .motif {
+      position: absolute;
+      top: 40px; left: 48px; right: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .motif-line { flex: 1; height: 1px; background: rgba(232,192,106,.25); }
+    .motif-diamond {
+      width: 7px; height: 7px;
+      background: var(--gold);
+      transform: rotate(45deg);
+      flex-shrink: 0;
+    }
+
+    /* ── Right form panel ── */
+    .panel-right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 56px;
+      background: var(--cream);
+      position: relative;
+    }
+
+    .form-wrap { width: 100%; max-width: 380px; }
+
+    /* ── Tabs ── */
+    .tab-row {
+      display: flex;
+      border-bottom: 1px solid var(--sand-dark);
+      margin-bottom: 36px;
+    }
+    .tab-btn {
+      background: none; border: none;
+      padding: 11px 0;
+      margin-right: 28px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      cursor: pointer;
+      position: relative;
+      transition: color .2s;
+    }
+    .tab-btn.active { color: var(--terracotta); }
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; right: 0;
+      height: 2px;
+      background: var(--terracotta);
+    }
+
+    /* ── Form header ── */
+    .form-header { margin-bottom: 30px; }
+    .form-greeting {
+      font-size: 0.72rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+
+    /* ── Fields ── */
+    .field { margin-bottom: 18px; }
+    label {
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 7px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      background: var(--white);
+      border: 1px solid var(--sand-dark);
+      border-radius: 3px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input::placeholder { color: rgba(138,123,111,.38); }
+    input:focus {
+      border-color: var(--terracotta-light);
+      box-shadow: 0 0 0 3px rgba(155,64,32,.07);
+    }
+
+    /* ── Button ── */
+    .btn {
+      width: 100%;
+      padding: 14px;
+      margin-top: 6px;
+      background: var(--terracotta);
+      border: none;
+      border-radius: 3px;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 500;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--sand);
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn:hover {
+      background: var(--terracotta-light);
+      box-shadow: 0 6px 20px rgba(155,64,32,.28);
+      transform: translateY(-1px);
+    }
+    .btn:active { transform: translateY(0); box-shadow: none; }
+    .btn:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* ── Alert ── */
+    .alert {
+      display: none;
+      padding: 12px 14px;
+      border-radius: 3px;
+      font-size: 0.81rem;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      gap: 9px;
+      animation: fadeSlide .25s ease;
+    }
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-5px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .alert.show { display: flex; align-items: flex-start; }
+    .alert-success {
+      background: rgba(196,151,61,.1);
+      border-left: 3px solid var(--gold);
+      color: #6B4F0A;
+    }
+    .alert-error {
+      background: rgba(155,64,32,.08);
+      border-left: 3px solid var(--terracotta);
+      color: var(--terracotta);
+    }
+    .alert-icon { font-size: 0.95rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Spinner ── */
+    .spinner {
+      display: inline-block;
+      width: 12px; height: 12px;
+      border: 2px solid rgba(242,232,217,.35);
+      border-top-color: var(--sand);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .form-panel { display: none; }
+    .form-panel.active { display: block; }
+
+    .form-note {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 0.74rem;
+      color: var(--warm-gray);
+      font-weight: 300;
+    }
+    .form-note a {
+      color: var(--terracotta);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .form-note a:hover { text-decoration: underline; }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; overflow: auto; }
+      .panel-left { width: 100%; min-height: 200px; padding: 32px 24px; justify-content: center; }
+      .panel-title { font-size: 2.2rem; }
+      .panel-right { padding: 32px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="panel-left">
+    <div class="motif">
+      <div class="motif-line"></div>
+      <div class="motif-diamond"></div>
+      <div class="motif-line"></div>
+      <div class="motif-diamond"></div>
+      <div class="motif-line"></div>
+    </div>
+    <div class="ornament-ring"></div>
+    <div class="panel-left-content">
+      <p class="panel-logo">✦ Artisanat Maroc</p>
+      <h2 class="panel-title">L'art entre<br/><em>vos mains</em></h2>
+      <div class="panel-divider"></div>
+      <p class="panel-desc">Plateforme dédiée aux artisans marocains — gérez votre boutique, vos créations et vos clients depuis un seul espace.</p>
+    </div>
+  </div>
+
+  <div class="panel-right">
+    <div class="form-wrap">
+
+      <div class="tab-row">
+        <button class="tab-btn active" onclick="switchTab('login')">Connexion</button>
+        <button class="tab-btn"       onclick="switchTab('register')">Inscription</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="panel-login" class="form-panel active">
+        <div class="form-header">
+          <p class="form-greeting">Bon retour</p>
+          <h1 class="form-heading">Connectez-<br/>vous</h1>
+        </div>
+        <div id="login-alert" class="alert"></div>
+        <div class="field">
+          <label for="login-email">Adresse e-mail</label>
+          <input type="email" id="login-email" placeholder="vous@exemple.com" autocomplete="email"/>
+        </div>
+        <div class="field">
+          <label for="login-password">Mot de passe</label>
+          <input type="password" id="login-password" placeholder="••••••••" autocomplete="current-password"/>
+        </div>
+        <button class="btn" id="login-btn" onclick="submitLogin()">Se connecter</button>
+        <p class="form-note">Pas de compte ? <a href="#" onclick="switchTab('register');return false;">Créer un compte</a></p>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="panel-register" class="form-panel">
+        <div class="form-header">
+          <p class="form-greeting">Bienvenue</p>
+          <h1 class="form-heading">Créer un<br/>compte</h1>
+        </div>
+        <div id="register-alert" class="alert"></div>
+        <div class="field">
+          <label for="reg-username">Nom d'utilisateur</label>
+          <input type="text" id="reg-username" placeholder="3 à 50 caractères" autocomplete="username"/>
+        </div>
+        <div class="field">
+          <label for="reg-email">Adresse e-mail</label>
+          <input type="email" id="reg-email" placeholder="vous@exemple.com" autocomplete="email"/>
+        </div>
+        <div class="field">
+          <label for="reg-password">Mot de passe</label>
+          <input type="password" id="reg-password" placeholder="Minimum 8 caractères" autocomplete="new-password"/>
+        </div>
+        <button class="btn" id="register-btn" onclick="submitRegister()">Créer mon compte</button>
+        <p class="form-note">Déjà inscrit ? <a href="#" onclick="switchTab('login');return false;">Se connecter</a></p>
+      </div>
+
+    </div>
+  </div>
+
+<script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach((b,i) =>
+      b.classList.toggle('active', tab==='login' ? i===0 : i===1));
+    document.getElementById('panel-login').classList.toggle('active', tab==='login');
+    document.getElementById('panel-register').classList.toggle('active', tab==='register');
+    clearAlert('login-alert');
+    clearAlert('register-alert');
+  }
+
+  function showAlert(id, type, message) {
+    const el = document.getElementById(id);
+    el.className = `alert alert-${type} show`;
+    el.innerHTML = `<span class="alert-icon">${type==='success'?'✦':'✕'}</span><span>${message}</span>`;
+  }
+  function clearAlert(id) {
+    const el = document.getElementById(id);
+    el.className = 'alert'; el.innerHTML = '';
+  }
+
+  function setLoading(btnId, loading, label) {
+    const btn = document.getElementById(btnId);
+    btn.disabled = loading;
+    btn.innerHTML = loading ? `<span class="spinner"></span>${label}` : label;
+  }
+
+  async function postForm(url, data) {
+    const res  = await fetch(url, { method:'POST', body: new URLSearchParams(data) });
+    const text = await res.text();
+    return { ok: res.ok, text };
+  }
+
+  async function submitLogin() {
+    clearAlert('login-alert');
+    const email    = document.getElementById('login-email').value.trim();
+    const password = document.getElementById('login-password').value;
+    if (!email || !password)
+      return showAlert('login-alert', 'error', 'Veuillez remplir tous les champs.');
+
+    setLoading('login-btn', true, 'Connexion…');
+    try {
+      const { ok, text } = await postForm('login.php', { email, password });
+      showAlert('login-alert', ok ? 'success' : 'error', text);
+      if (ok) document.getElementById('login-password').value = '';
+    } catch { showAlert('login-alert', 'error', 'Erreur réseau. Veuillez réessayer.'); }
+    finally  { setLoading('login-btn', false, 'Se connecter'); }
+  }
+
+  async function submitRegister() {
+    clearAlert('register-alert');
+    const username = document.getElementById('reg-username').value.trim();
+    const email    = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value;
+    if (!username || !email || !password)
+      return showAlert('register-alert', 'error', 'Veuillez remplir tous les champs.');
+
+    setLoading('register-btn', true, 'Inscription…');
+    try {
+      const { ok, text } = await postForm('registre.php', { username, email, password });
+      showAlert('register-alert', ok ? 'success' : 'error', text);
+      if (ok) {
+        ['reg-username','reg-email','reg-password'].forEach(id => document.getElementById(id).value = '');
+        setTimeout(() => switchTab('login'), 2200);
+      }
+    } catch { showAlert('register-alert', 'error', 'Erreur réseau. Veuillez réessayer.'); }
+    finally  { setLoading('register-btn', false, 'Créer mon compte'); }
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key !== 'Enter') return;
+    if (document.getElementById('panel-login').classList.contains('active')) submitLogin();
+    else submitRegister();
+  });
+</script>
+</body>
+</html>
