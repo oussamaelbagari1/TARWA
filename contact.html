@@ -24,15 +24,27 @@
 
         /* NAV */
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-            display: flex; align-items: center; justify-content: space-between;
+            height: 11%;
+            position: fixed;
+             top: 0;
+             left: 0;
+              right: 0;
+              z-index: 200;
+            display: flex;
+             align-items: center;
+              justify-content: space-between;
             padding: 18px 60px;
             background: rgba(253,250,245,0.95);
             backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(155,64,32,0.12);
             transition: all 0.3s;
         }
-        .nav-logo { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--terracotta); text-decoration: none; letter-spacing: 0.02em; }
+         .nav-logo img {
+             width: 110px;
+             height: auto; 
+            
+            }
+        
         .nav-links { display: flex; gap: 40px; list-style: none; }
         .nav-links a { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink); text-decoration: none; position: relative; transition: color 0.3s; }
         .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--terracotta); transition: width 0.3s; }
@@ -132,15 +144,6 @@
         .form-success h3 { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--ink); margin-bottom: 12px; }
         .form-success p { font-size: 15px; color: var(--warm-gray); }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        /* MAP */
-=======
-
->>>>>>> 2b10edf (modification du registre)
-=======
-        /* MAP */
->>>>>>> 87e5298d01d41463d534d05311f5f48aeb979fbc
         .map-section { max-width: 1280px; margin: 0 auto 100px; padding: 0 60px; }
         .map-section h2 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 400; color: var(--ink); margin-bottom: 40px; }
         .map-section h2 em { font-style: italic; color: var(--terracotta); }
@@ -152,15 +155,6 @@
         .map-card a { display: inline-block; margin-top: 14px; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--terracotta); text-decoration: none; border-bottom: 1px solid rgba(155,64,32,0.3); padding-bottom: 2px; transition: border-color 0.3s; }
         .map-card a:hover { border-color: var(--terracotta); }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        /* HOURS */
-=======
-        
->>>>>>> 2b10edf (modification du registre)
-=======
-        /* HOURS */
->>>>>>> 87e5298d01d41463d534d05311f5f48aeb979fbc
         .hours-section { background: var(--sand); padding: 100px 60px; }
         .hours-inner { max-width: 1160px; margin: 0 auto; }
         .hours-inner h2 { font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 400; color: var(--ink); margin-bottom: 60px; }
@@ -245,11 +239,11 @@
 
 <!-- NAV -->
 <nav>
-    <a href="VPR.html" class="nav-logo">Artisanat Marocain</a>
+    <a href="index.html" class="nav-logo"><img src="image/logo.png" alt=""></a>
     <ul class="nav-links">
-        <li><a href="VPR.html">Accueil</a></li>
-        <li><a href="coll.html">Collections</a></li>
-        <li><a href="arrti.html">Artisans</a></li>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collection.html">Collections</a></li>
+        <li><a href="artisans.html">Artisans</a></li>
         <li><a href="contact.html" class="active">Contact</a></li>
     </ul>
 </nav>
@@ -436,7 +430,7 @@
 <footer>
     <div class="footer-top">
         <div>
-            <div class="footer-logo">Artisanat Marocain</div>
+            <div class="nav-logo"><img src="image/logo.png" alt=""></div>
             <p class="footer-tagline">Préserver la tradition, célébrer l'authenticité du patrimoine marocain depuis des générations.</p>
             <div class="footer-social">
                 <a href="#" class="footer-social-btn" title="Facebook"><img src="facebook.png" alt="Facebook"></a>
@@ -449,19 +443,19 @@
             <div class="footer-links-col">
                 <h4>Navigation</h4>
                 <ul>
-                    <li><a href="VPR.html">Accueil</a></li>
-                    <li><a href="coll.html">Collections</a></li>
-                    <li><a href="arrti.html">Artisans</a></li>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="collection.html">Collections</a></li>
+                    <li><a href="artisans.html">Artisans</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-links-col">
                 <h4>Collections</h4>
                 <ul>
-                    <li><a href="coll.html">Tapis Berbères</a></li>
-                    <li><a href="coll.html">Poterie de Fès</a></li>
-                    <li><a href="coll.html">Bijoux en Argent</a></li>
-                    <li><a href="coll.html">Maroquinerie</a></li>
+                    <li><a href="collection.html">Tapis Berbères</a></li>
+                    <li><a href="collection.html">Poterie de Fès</a></li>
+                    <li><a href="collection.html">Bijoux en Argent</a></li>
+                    <li><a href="collection.html">Maroquinerie</a></li>
                 </ul>
             </div>
             <div class="footer-links-col">
