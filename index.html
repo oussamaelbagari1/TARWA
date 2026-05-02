@@ -291,23 +291,79 @@
         .about-text h2 em { font-style: italic; color: var(--terracotta); }
         .about-text p { font-size: 16px; line-height: 1.85; color: var(--warm-gray); font-weight: 300; margin-bottom: 40px; }
 
-        .stats-row {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            background: var(--ink);
-            padding: 60px;
-        }
-        .stat-item { text-align: center; padding: 20px; border-right: 1px solid rgba(255,255,255,0.08); }
-        .stat-item:last-child { border-right: none; }
-        .stat-num {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(36px, 5vw, 52px);
-            color: var(--gold-light);
-            line-height: 1;
-            margin-bottom: 10px;
-        }
-        .stat-label { font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+       .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    padding: 100px 60px;
+     background: transparent;
+}
+.stat-item:nth-child(1) { background: linear-gradient(135deg, #9B4020, #C0603A); }
+.stat-item:nth-child(2) { background: linear-gradient(135deg, #2E1A08, #4A3420); }
+.stat-item:nth-child(3) { background: linear-gradient(135deg, #C4973D, #E8C06A); }
+.stat-item:nth-child(4) { background: linear-gradient(135deg, #1A1208, #3D2008); }
 
+.stat-item {
+    color: white;
+    border-radius: 84px;
+    padding: 40px;
+}
+
+.stat-item {
+    position: relative;
+    padding: 40px 25px;
+    text-align: center;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+/* border glow animation */
+.stat-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(120deg, transparent, #C4973D, transparent);
+    -webkit-mask: 
+        linear-gradient(#000 0 0) content-box, 
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: 0.4s;
+}
+
+.stat-item:hover::before {
+    opacity: 1;
+}
+
+/* hover effect */
+.stat-item:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 50px rgba(196,151,61,0.25);
+    background: rgba(255,255,255,0.06);
+}
+
+/* number */
+.stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    background: linear-gradient(135deg, #E8C06A, #C4973D);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+}
+
+/* label */
+.stat-label {
+    font-size: 13px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+}
         .collections-section { padding: 120px 60px; background: var(--cream); }
         .section-header {
             display: flex;
@@ -648,6 +704,7 @@
         <li><a href="collection.html">Collections</a></li>
         <li><a href="artisans.html">Artisans</a></li>
         <li><a href="contact.html">Contact</a></li>
+         <li><a href="#">À propos</a></li>
         <li><button class="btn-login" onclick="window.location.href='login.html'">Login</button></li>
     </ul>
     <button class="nav-toggle" id="navToggle" aria-label="Menu" onclick="toggleMobileMenu()">
@@ -698,24 +755,7 @@
     </div>
 </section>
 
-<div class="stats-row">
-    <div class="stat-item reveal">
-        <div class="stat-num" data-target="500">0</div>
-        <div class="stat-label">Artisans Partenaires</div>
-    </div>
-    <div class="stat-item reveal">
-        <div class="stat-num" data-target="1000">0</div>
-        <div class="stat-label">Produits Uniques</div>
-    </div>
-    <div class="stat-item reveal">
-        <div class="stat-num" data-target="6">0</div>
-        <div class="stat-label">Collections</div>
-    </div>
-    <div class="stat-item reveal">
-        <div class="stat-num">100%</div>
-        <div class="stat-label">Fait Main</div>
-    </div>
-</div>
+
 
 <section class="collections-section">
     <div class="section-header reveal">
@@ -739,21 +779,25 @@
     <div class="artisans-row" id="artisansRow"></div>
 </section>
 
-<section class="newsletter">
-    <div class="newsletter-text reveal">
-        <h2>Restez <em>Inspiré</em></h2>
-        <p>Recevez nos dernières collections, histoires d'artisans et actualités de l'artisanat marocain directement dans votre boîte mail.</p>
-    </div>
-    <div class="reveal" style="flex:1; min-width:280px; max-width:440px;">
-        <div class="newsletter-form">
-            <input type="email" id="emailInput" placeholder="Votre adresse e-mail">
-            <button onclick="subscribeNewsletter()">S'inscrire</button>
-        </div>
-        <div class="nl-success" id="nlSuccess">✓ Merci ! Vous êtes inscrit(e).</div>
-        <p style="font-size:11px; color:rgba(255,255,255,0.2); margin-top:12px; letter-spacing:0.05em;">Pas de spam. Désabonnement en un clic.</p>
-    </div>
-</section>
 
+<div class="stats-row">
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="500">0</div>
+        <div class="stat-label">Artisans Partenaires</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="1000">0</div>
+        <div class="stat-label">Produits Uniques</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num" data-target="6">0</div>
+        <div class="stat-label">Collections</div>
+    </div>
+    <div class="stat-item reveal">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Fait Main</div>
+    </div>
+</div>
 <section class="contact-strip reveal">
     <div>
         <h2>Visitez Nos Ateliers</h2>
@@ -807,11 +851,11 @@
 </footer>
 
 <div class="toast" id="toast"></div>
-<a href="https://wa.me/212670283678?text=Bonjour%20je%20veux%20plus%20d'informations" 
+<a href="https://wa.me/212649205483?text=Bonjour%20je%20veux%20plus%20d'informations" 
    target="_blank"
    style="position:fixed;bottom:20px;right:20px;
    background:#25D366;color:white;
-   padding:15px 20px;border-radius:50px;
+   padding:10px 20px;border-radius:50px;
    text-decoration:none;font-weight:bold;">
    💬 WhatsApp
 </a>

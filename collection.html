@@ -29,44 +29,138 @@
             scroll-behavior: smooth;
         }
 
-        body {
-            font-family: 'Jost', sans-serif;
-            background-color: var(--cream);
-            color: var(--ink);
-            overflow-x: hidden;
-        }
-
-        /* ── NAV ── */
         nav {
+            height: 11.7%;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
+            top: 0; left: 0; right: 0;
+            z-index: 200;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 60px;
-            background: rgba(253, 250, 245, 0.92);
-            backdrop-filter: blur(12px);
+            padding: 14px 60px;
+            background: rgba(253, 250, 245, 0.95);
+            backdrop-filter: blur(14px);
             border-bottom: 1px solid rgba(155, 64, 32, 0.12);
             transition: all 0.3s;
         }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 22px;
-            color: var(--terracotta);
+        .nav-logo img {
+             width: 110px;
+             height: auto; 
+            
+            }
+        .nav-links { display: flex;
+             gap: 40px;
+              list-style: none;
+              align-items: center;
+             }
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink);
             text-decoration: none;
-            letter-spacing: 0.02em;
+            position: relative;
+            transition: color 0.3s;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px; left: 0;
+            width: 0; height: 1px;
+            background: var(--terracotta);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--terracotta); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+            z-index: 300;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px; height: 2px;
+            background: var(--ink);
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .nav-toggle.open span:nth-child(2) { opacity: 0; }
+        .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(253, 250, 245, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 250;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+        
+        .btn-login {
+            background: linear-gradient(135deg, #9B4020, #C0603A);
+            color: white;
+            padding: 10px 28px;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            line-height: 1;
+            vertical-align: middle;
+        }
+        .btn-login:hover {
+            background: linear-gradient(135deg, #C0603A, #9B4020);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(155, 64, 32, 0.3);
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a, .mobile-menu button {
+            font-size: 22px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--ink);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: var(--terracotta); }
+        .mobile-menu .btn-login-mobile {
+            background: linear-gradient(135deg, #9B4020, #C0603A);
+            color: white;
+            padding: 12px 36px;
+            font-size: 13px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Jost', sans-serif;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
 
+.btn-login-mobile {
+    background: #9B4020;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+}
         .nav-links a {
             font-size: 13px;
             font-weight: 400;
@@ -600,22 +694,52 @@
             }
             .footer-links { justify-content: center; }
         }
+        @media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .nav-toggle {
+        display: flex;
+    }
+}
     </style>
 </head>
 <body>
+<nav id="mainNav">
+    <a href="index.html" class="nav-logo">
+        <img src="image/logo.png" alt="Logo">
+    </a>
 
-    <!-- NAV -->
-    <nav>
-        <a href="index.html" class="nav-logo">Artisanat Marocain</a>
-        <ul class="nav-links">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="collection.html" class="active">Collections</a></li>
-            <li><a href="artisans.html">Artisans</a></li>
-            <li><a href="contact.html" class="nav-cta">Contact</a></li>
-        </ul>
-    </nav>
+    <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="collection.html" class="active">Collections</a></li>
+        <li><a href="artisans.html">Artisans</a></li>
+        <li><a href="contact.html">Contact</a></li>
+         <li><a href="#">À propos</a></li>
+        <li>
+            <button class="btn-login" onclick="window.location.href='login.html'">
+                Login
+            </button>
+        </li>
+    </ul>
 
-    <!-- HERO -->
+    <button class="nav-toggle" id="navToggle" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+    </button>
+</nav>
+    <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" onclick="closeMobileMenu()">Accueil</a>
+    <a href="collection.html" onclick="closeMobileMenu()">Collections</a>
+    <a href="artisans.html" onclick="closeMobileMenu()">Artisans</a>
+    <a href="contact.html" onclick="closeMobileMenu()">Contact</a>
+     <li><a href="#" onclick="closeMobileMenu()">À propos</a></li>
+    <button class="btn-login-mobile" onclick="window.location.href='login.html'">
+        Login
+    </button>
+</div>
+
+    
     <section class="hero">
         <div class="hero-bg"></div>
         <div class="hero-content">
@@ -627,7 +751,7 @@
         <div class="hero-line"></div>
     </section>
 
-    <!-- INTRO -->
+    
     <section class="intro reveal">
         <div class="intro-text">
             <h2>Tradition &amp; <em>Authenticité</em></h2>
@@ -643,14 +767,14 @@
         </div>
     </section>
 
-    <!-- COLLECTIONS -->
+   
     <div class="collections-wrapper">
         <div class="section-header reveal">
             <p class="section-eyebrow">Notre Savoir-Faire</p>
             <h2 class="section-title">Les Collections</h2>
         </div>
 
-        <!-- 01 – Tapis Berbères -->
+        
         <div class="collection-card reveal">
             <div class="card-image">
                 <img src="images/tapis_berberes.jpg" alt="Tapis Berbère" onerror="this.style.display='none'; this.parentElement.querySelector('.card-image-placeholder').style.display='flex';">
@@ -666,7 +790,7 @@
             </div>
         </div>
 
-        <!-- 02 – Poterie de Fès -->
+        
         <div class="collection-card reveal">
             <div class="card-image">
                 <img src="femme-en-train-de-faire-de-la-poterie.webp" alt="Poterie de Fès">
@@ -779,6 +903,13 @@
     </footer>
 
     <script>
+        function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+}
         // Scroll reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry, i) => {
